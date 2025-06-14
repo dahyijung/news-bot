@@ -1,3 +1,4 @@
+
 from datetime import datetime, timedelta, timezone
 import feedparser
 import re
@@ -58,22 +59,11 @@ news_data["<신작/업데이트>"] = []
 news_data["<업계>"] = []
 news_data["<기타>"] = []
 
+# 중복 필터링 기준 = 공통 단어 2개 이상
 def tokenize(text):
     return set(re.findall(r'\b[\w가-힣]+\b', text.lower()))
 
-def is_similar(new_tokens, seen_tokens_list, threshold=0.5):
-    for seen in seen_tokens_list:
-        common = len(new_tokens & seen)
-        max_len = max(len(new_tokens), len(seen))
-        if max_len == 0:
-            continue
-        similarity = common / max_len
-        if similarity >= threshold:
-            return True
-    return False
-
 seen_title_tokens = []
-seen_titles = set()
 
 # 뉴스 수집
 for source, url in rss_feeds.items():
@@ -91,10 +81,8 @@ for source, url in rss_feeds.items():
             continue
 
         title_tokens = tokenize(title)
-        if title in seen_titles or is_similar(title_tokens, seen_title_tokens, threshold=0.5):
+        if any(len(title_tokens & seen) >= 2 for seen in seen_title_tokens):
             continue
-
-        seen_titles.add(title)
         seen_title_tokens.append(title_tokens)
 
         if any(x in title for x in exclude_keywords):
