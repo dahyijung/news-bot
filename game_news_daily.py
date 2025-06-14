@@ -88,7 +88,9 @@ for source, url in rss_feeds.items():
             continue
 
         title_tokens = tokenize(title)
-        if is_jaccard_similar(title_tokens, seen_title_tokens, threshold=0.4):
+if is_jaccard_similar(title_tokens, seen_title_tokens, threshold=0.4):
+            line = f"{title}<br>🔗 <a href='{link}'>{link}</a>"
+            news_data.setdefault("<중복 의심>", []).append(line)
             continue
         seen_title_tokens.append(title_tokens)
 
@@ -114,7 +116,7 @@ for source, url in rss_feeds.items():
 
 # HTML 출력 구성
 output_lines = ["<hr>"]
-for section in list(game_companies.keys()) + ["<신작/업데이트>", "<업계>", "<기타>"]:
+for section in list(game_companies.keys()) + ["<신작/업데이트>", "<업계>", "<기타>", "<중복 의심>"]
     if news_data[section]:
         output_lines.append(f"<h2>🔺 {section}</h2>")
         for item in news_data[section]:
