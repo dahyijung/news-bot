@@ -94,7 +94,7 @@ if is_jaccard_similar(title_tokens, seen_title_tokens, threshold=0.4):
             continue
 seen_title_tokens.append(title_tokens)
 
-        if any(x in title for x in exclude_keywords):
+if any(x in title for x in exclude_keywords):
             continue
 
         line = f"{title}<br>🔗 <a href='{link}'>{link}</a>"
