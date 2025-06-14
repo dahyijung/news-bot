@@ -45,8 +45,9 @@ news_data["<신작/업데이트>"] = []
 news_data["<업계>"] = []
 news_data["<기타>"] = []
 
-# 유사도 중복 필터용
+# 중복 필터용
 seen_titles = []
+duplicate_candidates = []
 
 def is_similar_cosine(new_title):
     if not seen_titles:
@@ -54,7 +55,7 @@ def is_similar_cosine(new_title):
     vectorizer = TfidfVectorizer().fit(seen_titles + [new_title])
     vectors = vectorizer.transform(seen_titles + [new_title])
     similarities = cosine_similarity(vectors[-1], vectors[:-1])
-    return max(similarities[0]) >= 0.4
+    return max(similarities[0]) >= 0.5
 
 # ========== 수집 ==========
 for source, url in rss_feeds.items():
@@ -74,6 +75,7 @@ for source, url in rss_feeds.items():
             continue
 
         if is_similar_cosine(title):
+            duplicate_candidates.append(f"{title}<br>🔗 <a href='{link}'>{link}</a>")
             continue
         seen_titles.append(title)
 
@@ -97,7 +99,7 @@ for source, url in rss_feeds.items():
             else:
                 news_data["<기타>"].append(line)
 
-# ========== 출력 생성 ==========
+# ========== HTML 출력 ==========
 output_lines = ["<hr>"]
 for section in list(game_companies.keys()) + ["<신작/업데이트>", "<업계>", "<기타>"]:
     if news_data[section]:
@@ -105,6 +107,13 @@ for section in list(game_companies.keys()) + ["<신작/업데이트>", "<업계>
         for item in news_data[section]:
             output_lines.append(f"<p>{item}</p><br>")
         output_lines.append("<hr>")
+
+# 중복 의심 뉴스 표시
+if duplicate_candidates:
+    output_lines.append(f"<h2>⚠️ 중복 의심 뉴스</h2>")
+    for item in duplicate_candidates:
+        output_lines.append(f"<p>{item}</p><br>")
+    output_lines.append("<hr>")
 
 html_output = "<html><body>" + "".join(output_lines) + "</body></html>"
 
