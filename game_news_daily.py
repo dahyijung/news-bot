@@ -103,9 +103,9 @@ industry_keywords = [
 
 
 news_data = {k: [] for k in game_companies}
-news_data["<신작/업데이트>"] = []
-news_data["<업계>"] = []
-news_data["<기타>"] = []
+news_data["신작/업데이트"] = []
+news_data["업계"] = []
+news_data["기타"] = []
 
 # 중복 필터용
 seen_titles = []
@@ -155,17 +155,17 @@ for source, url in rss_feeds.items():
 
         if not matched:
             if any(k in title for k in update_keywords):
-                news_data["<신작/업데이트>"].append(line)
+                news_data["신작/업데이트"].append(line)
             elif any(k in title for k in industry_keywords):
-                news_data["<업계>"].append(line)
+                news_data["업계"].append(line)
             else:
-                news_data["<기타>"].append(line)
+                news_data["기타"].append(line)
 
 # ========== HTML 출력 ==========
 output_lines = ["<hr>"]
-for section in list(game_companies.keys()) + ["<신작/업데이트>", "<업계>", "<기타>"]:
+for section in list(game_companies.keys()) + ["신작/업데이트", "업계", "기타"]:
     if news_data[section]:
-        output_lines.append(f"<h2>🔺 {section}</h2>")
+        output_lines.append(f"<h2>💠 {section}</h2>")
         for item in news_data[section]:
             output_lines.append(f"<p>{item}</p><br>")
         output_lines.append("<hr>")
