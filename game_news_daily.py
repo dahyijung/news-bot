@@ -106,7 +106,7 @@ for source, url in rss_feeds.items():
                 news_data["<기타>"].append(line)
 
 # HTML 출력 구성
-output_lines = [f"<font size=25><b>📰 게임 뉴스 요약 - {now_kst.strftime('%Y-%m-%d')}</b></font><hr>"]
+output_lines = 
 for section in list(game_companies.keys()) + ["<신작/업데이트>", "<업계>", "<기타>"]:
     if news_data[section]:
         output_lines.append(f"<h2>🔺 {section}</h2>")
