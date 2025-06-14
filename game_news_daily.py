@@ -92,7 +92,7 @@ if is_jaccard_similar(title_tokens, seen_title_tokens, threshold=0.4):
             line = f"{title}<br>🔗 <a href='{link}'>{link}</a>"
             news_data.setdefault("<중복 의심>", []).append(line)
             continue
-        seen_title_tokens.append(title_tokens)
+seen_title_tokens.append(title_tokens)
 
         if any(x in title for x in exclude_keywords):
             continue
