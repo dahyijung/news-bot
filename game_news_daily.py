@@ -57,21 +57,25 @@ news_data = {k: [] for k in game_companies}
 news_data["<신작/업데이트>"] = []
 news_data["<업계>"] = []
 news_data["<기타>"] = []
-news_data["<중복 의심>"] = []
 
 def tokenize(text):
     return set(re.findall(r'\b[\w가-힣]+\b', text.lower()))
 
-def is_jaccard_similar(new_tokens, seen_tokens_list, threshold=0.4):
-    for tokens in seen_tokens_list:
-        inter = new_tokens & tokens
-        union = new_tokens | tokens
-        if len(union) > 0 and len(inter) / len(union) >= threshold:
+def is_similar(new_tokens, seen_tokens_list, threshold=0.5):
+    for seen in seen_tokens_list:
+        common = len(new_tokens & seen)
+        max_len = max(len(new_tokens), len(seen))
+        if max_len == 0:
+            continue
+        similarity = common / max_len
+        if similarity >= threshold:
             return True
     return False
 
 seen_title_tokens = []
+seen_titles = set()
 
+# 뉴스 수집
 for source, url in rss_feeds.items():
     feed = feedparser.parse(url)
     for entry in feed.entries:
@@ -87,16 +91,16 @@ for source, url in rss_feeds.items():
             continue
 
         title_tokens = tokenize(title)
-        line = f"{title}<br>🔗 <a href='{link}'>{link}</a>"
-
-        if is_jaccard_similar(title_tokens, seen_title_tokens, threshold=0.4):
-            news_data["<중복 의심>"].append(line)
+        if title in seen_titles or is_similar(title_tokens, seen_title_tokens, threshold=0.5):
             continue
 
+        seen_titles.add(title)
         seen_title_tokens.append(title_tokens)
 
         if any(x in title for x in exclude_keywords):
             continue
+
+        line = f"{title}<br>🔗 <a href='{link}'>{link}</a>"
 
         matched = False
         for company, keywords in game_companies.items():
@@ -115,7 +119,7 @@ for source, url in rss_feeds.items():
 
 # HTML 출력 구성
 output_lines = ["<hr>"]
-for section in list(game_companies.keys()) + ["<신작/업데이트>", "<업계>", "<기타>", "<중복 의심>"]:
+for section in list(game_companies.keys()) + ["<신작/업데이트>", "<업계>", "<기타>"]:
     if news_data[section]:
         output_lines.append(f"<h2>🔺 {section}</h2>")
         for item in news_data[section]:
