@@ -1,4 +1,3 @@
-
 from datetime import datetime, timedelta, timezone
 import feedparser
 import re
@@ -58,6 +57,7 @@ news_data = {k: [] for k in game_companies}
 news_data["<신작/업데이트>"] = []
 news_data["<업계>"] = []
 news_data["<기타>"] = []
+news_data["<중복 의심>"] = []
 
 def tokenize(text):
     return set(re.findall(r'\b[\w가-힣]+\b', text.lower()))
@@ -72,7 +72,6 @@ def is_jaccard_similar(new_tokens, seen_tokens_list, threshold=0.4):
 
 seen_title_tokens = []
 
-# 뉴스 수집
 for source, url in rss_feeds.items():
     feed = feedparser.parse(url)
     for entry in feed.entries:
@@ -88,16 +87,16 @@ for source, url in rss_feeds.items():
             continue
 
         title_tokens = tokenize(title)
-if is_jaccard_similar(title_tokens, seen_title_tokens, threshold=0.4):
-            line = f"{title}<br>🔗 <a href='{link}'>{link}</a>"
-            news_data.setdefault("<중복 의심>", []).append(line)
-            continue
-seen_title_tokens.append(title_tokens)
-
-if any(x in title for x in exclude_keywords):
-            continue
-
         line = f"{title}<br>🔗 <a href='{link}'>{link}</a>"
+
+        if is_jaccard_similar(title_tokens, seen_title_tokens, threshold=0.4):
+            news_data["<중복 의심>"].append(line)
+            continue
+
+        seen_title_tokens.append(title_tokens)
+
+        if any(x in title for x in exclude_keywords):
+            continue
 
         matched = False
         for company, keywords in game_companies.items():
@@ -116,7 +115,7 @@ if any(x in title for x in exclude_keywords):
 
 # HTML 출력 구성
 output_lines = ["<hr>"]
-for section in list(game_companies.keys()) + ["<신작/업데이트>", "<업계>", "<기타>", "<중복 의심>"]
+for section in list(game_companies.keys()) + ["<신작/업데이트>", "<업계>", "<기타>", "<중복 의심>"]:
     if news_data[section]:
         output_lines.append(f"<h2>🔺 {section}</h2>")
         for item in news_data[section]:
