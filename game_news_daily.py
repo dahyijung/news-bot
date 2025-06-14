@@ -165,7 +165,7 @@ for source, url in rss_feeds.items():
 output_lines = ["<hr>"]
 for section in list(game_companies.keys()) + ["신작/업데이트", "업계", "기타"]:
     if news_data[section]:
-        output_lines.append(f"<h2>💠 {section}</h2>")
+        output_lines.append(f"<h2>🕹️ {section}</h2>")
         for item in news_data[section]:
             output_lines.append(f"<p>{item}</p><br>")
         output_lines.append("<hr>")
