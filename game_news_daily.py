@@ -22,23 +22,85 @@ rss_feeds = {
 }
 
 game_companies = {
-    "넥슨": ["넥슨", "Nexon", "던파", "DNF", "블루 아카이브", "Blue Archive", "카트라이더", "Hit2", "마비노기", "서든어택", "빈딕투스", "네오플", "퍼스트 버서커", "카잔", "FC온라인", "MapleStory", "메이플스토리", "메이플"],
-    "크래프톤": ["크래프톤", "Krafton", "배틀그라운드", "PUBG", "칼리스토", "The Callisto Protocol", "TTBT", "눈물을 마시는 새", "김창한", "뉴스테이트", "NEW STATE", "Striking Distance", "Subnautica", "언노운월즈"],
-    "시프트업": ["시프트업", "Shift Up", "스텔라 블레이드", "Stellar Blade", "스텔블", "데스티니 차일드", "프로젝트 위치스", "스피릿", "김형태"],
-    "스마일게이트": ["스마일게이트", "Smilegate", "로스트아크", "Lost Ark", "로아", "에픽세븐", "Epic Seven", "이클립스", "크로스파이어", "CF", "CFX", "소울워커", "Stove"],
-    "NCSoft": ["NCSoft", "NC", "엔씨", "리니지", "Lineage", "블소", "Blade & Soul", "아이온", "Aion", "TL", "Throne and Liberty", "트릭스터", "유니버스", "Purple"],
-    "넷마블": ["넷마블", "Netmarble", "세븐나이츠", "세나", "나 혼자만 레벨업", "나혼렙", "Solo Leveling", "A3", "모두의마블", "모마", "제2의나라", "7DS", "일곱 개의 대죄", "BTS Island", "마블 퓨처파이트", "마퓨파", "오버프라임", "킹오파", "뱀피르"],
-    "펄어비스": ["펄어비스", "Pearl Abyss", "검은사막", "Black Desert", "붉은사막", "Crimson Desert", "도깨비", "DokeV", "정경인", "이재명 대표", "CCO"],
-    "컴투스": ["컴투스", "Com2uS", "서머너즈워", "Summoners War", "서머너즈워: 크로니클", "크로니클", "스타라이트", "스타시드", "MLB9이닝스", "버추얼플레이"],
-    "네오위즈": ["네오위즈", "Neowiz", "P의 거짓", "Lies of P", "라이어P", "브라운더스트", "Brown Dust", "아바", "AVA", "디제이맥스", "DJMAX"],
-    "카카오게임즈": ["카카오게임즈", "Kakao Games", "크로노 오디세이", "Chrono Odyssey"],
-    "데브시스터즈": ["데브시스터즈", "DevSisters", "쿠키런", "CookieRun", "쿠키RUN 킹덤", "킹덤", "브레이버스", "브레이버스: 다크라이즈", "데브", "쿠런"],
-    "위메이드": ["위메이드", "Wemade", "위메이드맥스", "Wemade Max", "미르", "미르M", "미르4", "Legend of Mir", "전기아이피", "장현국", "위믹스", "WEMIX"]
+    "넥슨": [
+        "넥슨", "nexon", "넥슨게임즈", "nexon games", "데브캣", "devcat", "던전앤파이터", "던파", "dnf",
+        "블루 아카이브", "blue archive", "카트라이더", "카트", "kartrider", "hit2", "마비노기", "mabinogi",
+        "서든어택", "sudden attack", "빈딕투스", "vindictus", "네오플", "퍼스트 버서커", "카잔",
+        "fc온라인", "fc online", "피파온라인", "fifa online", "메이플스토리", "maplestory", "메이플",
+        "v4", "프라시아 전기", "프라시아", "워헤이븐", "warhaven", "베일드 엑스퍼트", "veiled experts"
+    ],
+    "크래프톤": [
+        "크래프톤", "krafton", "펍지", "pubg", "pubg studios", "pubg mobile", "화평정영", "和平精英", "bgmi",
+        "더 칼리스토 프로토콜", "the callisto protocol", "칼리스토", "ttbt",
+        "눈물을 마시는 새", "김창한", "뉴스테이트", "new state mobile", "new state",
+        "striking distance", "스트라이킹 디스턴스", "subnautica", "서브노티카", "unknown worlds", "언노운월즈"
+    ],
+    "시프트업": [
+        "시프트업", "shift up", "스텔라 블레이드", "stellar blade", "스텔블",
+        "데스티니 차일드", "destiny child", "니케", "승리의 여신: 니케", "goddess of victory nikke", "김형태"
+    ],
+    "스마일게이트": [
+        "스마일게이트", "smilegate", "스마일게이트 rpg", "스마일게이트 메가포트", "smilegate rpg", "megaport",
+        "로스트아크", "lost ark", "로아", "에픽세븐", "epic seven", "수퍼크리에이티브", "super creative",
+        "크로스파이어", "crossfire", "cf", "cfx", "소울워커", "soulworker", "스토브", "stove", "테일즈런너"
+    ],
+    "ncsoft": [
+        "ncsoft", "nc", "엔씨소프트", "엔씨", "리니지", "lineage", "리니지m", "lineage m", "리니지w", "lineage w",
+        "블레이드 앤 소울", "blade & soul", "블소", "아이온", "aion", "tl", "throne and liberty",
+        "트릭스터", "유니버스", "universe", "퍼플", "purple", "퓨저"
+    ],
+    "넷마블": [
+        "넷마블", "netmarble", "넷마블넥서스", "넷마블몬스터", "넷마블에프앤씨", "netmarble nexus", "netmarble monster",
+        "세븐나이츠", "seven knights", "세나", "나 혼자만 레벨업", "나혼렙", "solo leveling",
+        "a3", "a3 still alive", "모두의마블", "모마", "제2의 나라", "second country", "7ds", "일곱 개의 대죄",
+        "seven deadly sins", "bts island", "마블 퓨처파이트", "marvel future fight", "마퓨파",
+        "오버프라임", "킹오파", "더 킹 오브 파이터즈", "the king of fighters", "뱀피르", "vampire"
+    ],
+    "펄어비스": [
+        "펄어비스", "pearl abyss", "검은사막", "black desert", "bdo", "검은사막 모바일", "black desert mobile",
+        "붉은사막", "crimson desert", "도깨비", "dokev", "정경인", "cco", "플랜8", "plan 8"
+    ],
+    "컴투스": [
+        "컴투스", "com2us", "컴투스홀딩스", "com2us holdings", "서머너즈 워", "서머너즈워", "summoners war",
+        "크로니클", "서머너즈워: 크로니클", "summoners war: chronicles", "스타라이트", "스타시드", "starseed",
+        "mlb9이닝스", "mlb 9 innings", "컴투버스", "com2verse", "버추얼플레이", "워킹데드", "the walking dead"
+    ],
+    "네오위즈": [
+        "네오위즈", "neowiz", "네오위즈게임즈", "p의 거짓", "lies of p", "브라운더스트", "brown dust",
+        "bd2", "아바", "ava", "디제이맥스", "djmax", "스컬", "skul"
+    ],
+    "카카오게임즈": [
+        "카카오게임즈", "kakao games", "크로노 오디세이", "chrono odyssey", "우마무스메", "uma musume",
+        "가디언 테일즈", "guardian tales", "에버소울", "eversoul", "카겜"
+    ],
+    "데브시스터즈": [
+        "데브시스터즈", "devsisters", "쿠키런", "cookierun", "쿠키런 킹덤", "cookie run kingdom", "브레이버스",
+        "브레이버스: 다크라이즈", "오븐브레이크", "ovenbreak", "쿠런"
+    ],
+    "위메이드": [
+        "위메이드", "wemade", "위메이드맥스", "wemade max", "위메이드플레이", "wemade play",
+        "미르", "미르의 전설", "legend of mir", "미르m", "미르4", "전기아이피", "장현국",
+        "위믹스", "wemix", "wemix play", "wcd"
+    ]
 }
 
-exclude_keywords = ["블록체인", "Web3", "마브렉스", "포커", "맞고", "골프", "웹3", "오늘의 주요일정", "MSI"]
-update_keywords = ["출시", "론칭", "데모", "업데이트", "런칭", "발표", "공개"]
-industry_keywords = ["파업", "한한령", "규제", "판매량", "개최", "모집", "홍콩", "대만", "시정", "게임 업계"]
+
+
+exclude_keywords = [
+    "블록체인", "web3", "웹3", "마브렉스", "포커", "맞고", "골프", "오늘의 주요일정", "msi",
+    "카지노", "사행성", "도박", "경마", "경륜", "룰렛", "nft", "가상자산", "암호화폐", "코인"
+]
+
+update_keywords = [
+    "출시", "론칭", "런칭", "발표", "공개", "업데이트", "데모", "신작", "신규", "베타",
+    "얼리", "cbt", "obt", "사전예약", "사전 등록"
+]
+
+industry_keywords = [
+    "파업", "한한령", "규제", "판매량", "개최", "모집", "홍콩", "대만", "시정", "게임 업계",
+    "매출", "시장", "주가", "리스크", "해외 진출", "정책", "인수합병", "m&a", "펀딩", "정부"
+]
+
 
 news_data = {k: [] for k in game_companies}
 news_data["<신작/업데이트>"] = []
