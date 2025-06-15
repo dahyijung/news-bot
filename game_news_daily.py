@@ -1,4 +1,5 @@
-script = '''from datetime import datetime, timedelta, timezone
+
+from datetime import datetime, timedelta, timezone
 import feedparser
 import os
 import re
