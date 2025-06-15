@@ -2,7 +2,7 @@ name: Run game_news_daily.py every day
 
 on:
   schedule:
-    - cron: '0 21 * * *'  # 한국시간(KST) 오전 6시 = UTC 21시
+    - cron: '25 14 * * *'  # 한국시간(KST) 오전 6시 = UTC 21시
   workflow_dispatch:
 
 jobs:
