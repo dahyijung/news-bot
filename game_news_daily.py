@@ -328,7 +328,7 @@ for source, url in rss_feeds.items():
             continue
         seen_titles.append(title)
         # exclude_keywords 뉴스도 low priority로 분류
-        if any(x.lower() in title for x in exclude_keywords):
+        if any(x.lower() in title.lower() for x in exclude_keywords):
             duplicate_candidates.append(f"{title}<br>🔗 <a href='{link}'>{link}</a>")
             continue
         line = f"{title}<br>🔗 <a href='{link}'>{link}</a>"
