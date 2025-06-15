@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+script = '''from datetime import datetime, timedelta, timezone
 import feedparser
 import os
 import re
@@ -10,7 +10,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 now = datetime.now(timezone.utc)
 time_threshold = now - timedelta(hours=30)
 
-save_path = r"C:\Users\dahyijung\OneDrive - Tencent Overseas\tencentoverseas - News clipping - backup"
+save_path = r"C:\\Users\\dahyijung\\OneDrive - Tencent Overseas\\tencentoverseas - News clipping - backup"
 html_file = os.path.join(save_path, "game_news_today.html")
 
 rss_feeds = {
@@ -42,63 +42,56 @@ game_companies = {
     "시프트업": [
         "시프트업", "shift up", "스텔라 블레이드", "stellar blade", "스텔블",
         "데스티니 차일드", "destiny child", "니케", "승리의 여신: 니케", "nikke", "김형태",
-        "프로젝트 스피릿", "스피릿", "데스티니 차일드", "데차", "스텔라블레이드", "스피릿", "프로젝트 위치스"
+        "프로젝트 스피릿", "스피릿", "데차", "스피릿", "프로젝트 위치스"
     ],
     "스마일게이트": [
         "스마일게이트", "smilegate",
         "로스트아크", "lost ark", "로아", "에픽세븐", "epic seven", "수퍼크리에이티브", "슈퍼크리에이티브",
-        "크로스파이어", "crossfire", "cf", "cfx", "소울워커", "soulworker", "스토브", "stove", "테일즈런너"
+        "크로스파이어", "crossfire", "cf", "cfx", "소울워커", "soulworker", "스토브", "stove", "테일즈런너",
         "크로스 파이어", "로스트 아크", "에픽 세븐", "스토브", "로드나인", "카오스 제로 나이트메어", "카제나", "이클립스"
     ],
     "ncsoft": [
         "ncsoft", "nc", "엔씨소프트", "엔씨", "리니지", "lineage", "리니지m", "lineage m", "리니지w", "lineage w",
         "아이온", "aion", "tl", "throne and liberty",
-        "트릭스터", "유니버스", "universe", "퍼플", "purple", "퓨저", "쓰론 앤 리버티", "티엘", "호연", "트릭스터", "배틀크러쉬", "LLL"
+        "유니버스", "universe", "퍼플", "purple", "퓨저", "쓰론 앤 리버티", "티엘", "호연", "배틀크러쉬"
     ],
     "넷마블": [
         "넷마블", "netmarble", "에프앤씨", "F&C",
         "세븐나이츠", "seven knights", "세나", "나 혼자만 레벨업", "나혼렙", "solo leveling",
-        "a3", "a3 still alive", "모두의마블", "모마", "제2의 나라", "second country", "7ds", "일곱 개의 대죄", "칠대죄",
+        "a3", "a3 still alive", "모모", "제2의 나라", "7ds", "일곱 개의 대죄", "칠대죄",
         "seven deadly sins", "bts island", "퓨처파이트", "marvel future fight", "마퓨파",
-        "오버프라임", "킹오파", "더 킹 오브 파이터즈", "the king of fighters", "뱀피르", "vampire",
-        "제2의나라", "제2의 나라", "쿵야", "세븐 나이츠", "페이트", "모두의 마블", "레이븐", "아스달", "킹 아서", "왕좌의 게임", "몬길",
-        "코웨이"
+        "오버프라임", "킹오파", "the king of fighters", "뱀피르", "vampire",
+        "쿵야", "레이븐", "아스달", "킹 아서", "왕좌의 게임", "몬길", "코웨이"
     ],
     "펄어비스": [
         "펄어비스", "pearl abyss", "검은사막", "black desert", "bdo", "검은사막 모바일", "black desert mobile",
-        "붉은사막", "crimson desert", "도깨비", "dokev", "정경인", "cco", "플랜8", "plan 8", "EVE", "팩토리얼"
+        "붉은사막", "crimson desert", "도깨비", "dokev", "플랜8", "plan 8"
     ],
     "컴투스": [
-        "컴투스", "com2us", "컴투스홀딩스", "com2us holdings", "서머너즈 워", "서머너즈워", "summoners war",
-        "크로니클", "서머너즈워: 크로니클", "summoners war: chronicles", "스타라이트", "스타시드", "starseed",
-        "mlb9이닝스", "mlb 9 innings", "컴투버스", "com2verse", "미니게임천국", "더 스트라이트"
+        "컴투스", "com2us", "컴투스홀딩스", "com2us holdings", "서머너즈 워", "summoners war",
+        "크로니클", "summoners war: chronicles", "스타라이트", "starseed",
+        "mlb 9 innings", "컴투버스", "미니게임천국", "더 스트라이트"
     ],
     "네오위즈": [
-        "네오위즈", "neowiz", "네오위즈게임즈", "p의 거짓", "lies of p", "브라운더스트", "brown dust",
-        "bd2", "아바", "ava", "디제이맥스", "djmax", "스컬", "skul", "피구라", "피의거짓", "피의 거짓", "디맥", "고양이와 스프", "블랭크", 
-        "안녕 서울", "안녕서울", "영웅전설", "파우게임즈", "하이디어"
+        "네오위즈", "neowiz", "네오위즈게임즈", "브라운더스트", "brown dust",
+        "디제이맥스", "djmax", "스컬", "피의거짓", "안녕서울", "영웅전설"
     ],
     "카카오게임즈": [
         "카카오게임즈", "kakao games", "크로노 오디세이", "chrono odyssey", "우마무스메", "uma musume",
-        "가디언 테일즈", "guardian tales", "에버소울", "eversoul", "카겜", "크로노", "말딸", "가테", "오딘", "아레스", "롬", "아키에이지 워", "에버소울",
-        "가디스오더", "스톰게이트", "엑스엘게임즈", "엑스엘", "라이온하트", "넵튠"
+        "가디언 테일즈", "guardian tales", "에버소울", "eversoul", "카겜", "말딸",
+        "오딘", "아레스", "롬", "스톰게이트", "엑스엘", "라이온하트"
     ],
     "데브시스터즈": [
-        "데브시스터즈", "devsisters", "쿠키런", "cookierun", "쿠키런 킹덤", "cookie run kingdom",
-        "오븐브레이크", "ovenbreak", "쿠런", "브릭시티", "브릭 시티"
+        "데브시스터즈", "cookierun", "쿠키런", "쿠키런 킹덤", "오븐브레이크"
     ],
     "위메이드": [
-        "위메이드", "wemade", "wemade max",
-        "미르", "전기아이피", "장현국", "나이트 크로우", "이미르", "애니팡",
-        "위믹스", "wemix", "wemix play", "wcd"
+        "위메이드", "wemade", "미르", "전기아이피", "나이트 크로우", "위믹스"
     ]
 }
 
-
-
 exclude_keywords = [
     "마브렉스", "포커", "맞고", "골프", "오늘의 주요일정", "msi",
-    "카지노", "도박", "경마", "경륜", "룰렛", "nft", "가상자산", "암호화폐", "코인", "MSI", "챔피언십", "FSL"
+    "카지노", "도박", "경마", "경륜", "룰렛", "nft", "가상자산", "암호화폐", "코인", "챔피언십", "FSL"
 ]
 
 update_keywords = [
@@ -107,17 +100,14 @@ update_keywords = [
 ]
 
 industry_keywords = [
-    "파업", "한한령", "규제", "판매량", "개최", "모집", "홍콩", "대만", "시정", "게임 업계",
-    "매출", "시장", "주가", "리스크", "해외 진출", "정책", "인수합병", "m&a", "펀딩", "정부"
+    "파업", "한한령", "규제", "판매량", "개최", "모집", "홍콩", "대만", "게임 업계", "매출", "시장", "주가", "m&a"
 ]
-
 
 news_data = {k: [] for k in game_companies}
 news_data["신작/업데이트"] = []
 news_data["업계"] = []
 news_data["기타"] = []
 
-# 중복 필터용
 seen_titles = []
 duplicate_candidates = []
 
@@ -129,40 +119,33 @@ def is_similar_cosine(new_title):
     similarities = cosine_similarity(vectors[-1], vectors[:-1])
     return max(similarities[0]) >= 0.5
 
-# ========== 수집 ==========
 for source, url in rss_feeds.items():
     feed = feedparser.parse(url)
     for entry in feed.entries:
         title = entry.title.strip()
         link = entry.link
         published = entry.get("published_parsed")
-
         if not published:
             continue
-
         pub_datetime_kst = datetime(*published[:6], tzinfo=timezone(timedelta(hours=9)))
         pub_datetime_utc = pub_datetime_kst.astimezone(timezone.utc)
-
         if pub_datetime_utc < time_threshold:
             continue
-
         if is_similar_cosine(title):
             duplicate_candidates.append(f"{title}<br>🔗 <a href='{link}'>{link}</a>")
             continue
         seen_titles.append(title)
-
+        # exclude_keywords 뉴스도 low priority로 분류
         if any(x in title for x in exclude_keywords):
+            duplicate_candidates.append(f"{title}<br>🔗 <a href='{link}'>{link}</a>")
             continue
-
         line = f"{title}<br>🔗 <a href='{link}'>{link}</a>"
-
         matched = False
         for company, keywords in game_companies.items():
             if any(k in title for k in keywords):
                 news_data[company].append(line)
                 matched = True
                 break
-
         if not matched:
             if any(k in title for k in update_keywords):
                 news_data["신작/업데이트"].append(line)
@@ -171,7 +154,6 @@ for source, url in rss_feeds.items():
             else:
                 news_data["기타"].append(line)
 
-# ========== HTML 출력 ==========
 output_lines = ["<hr>"]
 for section in list(game_companies.keys()) + ["신작/업데이트", "업계", "기타"]:
     if news_data[section]:
@@ -180,16 +162,15 @@ for section in list(game_companies.keys()) + ["신작/업데이트", "업계", "
             output_lines.append(f"<p>{item}</p><br>")
         output_lines.append("<hr>")
 
-# 중복 의심 뉴스 표시
+# 중복 / low priority 뉴스 표시
 if duplicate_candidates:
-    output_lines.append(f"<h2>⚠️ 중복 의심 뉴스</h2>")
+    output_lines.append(f"<h2>⚠️ 중복 / low priority</h2>")
     for item in duplicate_candidates:
         output_lines.append(f"<p>{item}</p><br>")
     output_lines.append("<hr>")
 
 html_output = "<html><body>" + "".join(output_lines) + "</body></html>"
 
-# ========== Teams 전송 ==========
 def send_to_teams(webhook_url, message_text):
     payload = {
         "text": message_text
@@ -206,3 +187,5 @@ def send_to_teams(webhook_url, message_text):
 webhook_url = "https://prod-64.westus.logic.azure.com:443/workflows/2433824cc25c4585bb0c18d716bfc3f0/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=oXU7IMET52YHW6AhexHeyX7oPmJZJcTksUvbVrmOfIY"
 print(html_output)
 send_to_teams(webhook_url, html_output)
+'''
+print(script)
