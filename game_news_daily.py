@@ -184,8 +184,7 @@ def send_to_teams(webhook_url, message_text):
     else:
         print("✅ Teams 전송 완료")
 
+# 전송 실행
 webhook_url = "https://prod-64.westus.logic.azure.com:443/workflows/2433824cc25c4585bb0c18d716bfc3f0/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=oXU7IMET52YHW6AhexHeyX7oPmJZJcTksUvbVrmOfIY"
 print(html_output)
 send_to_teams(webhook_url, html_output)
-'''
-print(script)
