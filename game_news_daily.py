@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 # ========== 설정 ==========
 now = datetime.now(timezone.utc)
-time_threshold = now - timedelta(hours=15)
+time_threshold = now - timedelta(hours=20)
 
 save_path = r"C:\\Users\\dahyijung\\OneDrive - Tencent Overseas\\tencentoverseas - News clipping - backup"
 html_file = os.path.join(save_path, "game_news_today.html")
@@ -191,22 +191,23 @@ for source, url in rss_feeds.items():
         classify_and_store_news(title, link)
 
 # 특수 피드 처리
-special_feed = feedparser.parse(special_feed_url)
-for entry in special_feed.entries:
-    title = entry.title.strip()
-    link = entry.link
-    description = entry.get("description", "")
-    match = re.search(r"(\d{4}\.\d{2}\.\d{2} \d{2}:\d{2})", description)
-    if not match:
-        continue
-    try:
-        pub_datetime_kst = datetime.strptime(match.group(1), "%Y.%m.%d %H:%M").replace(tzinfo=timezone(timedelta(hours=9)))
-        pub_datetime_utc = pub_datetime_kst.astimezone(timezone.utc)
-    except:
-        continue
-    if pub_datetime_utc < time_threshold:
-        continue
-    classify_and_store_news(title, link)
+for url in special_feed_urls:
+    special_feed = feedparser.parse(url)
+    for entry in special_feed.entries:
+        title = entry.title.strip()
+        link = entry.link
+        description = entry.get("description", "")
+        match = re.search(r"(\d{4}\.\d{2}\.\d{2} \d{2}:\d{2})", description)
+        if not match:
+            continue
+        try:
+            pub_datetime_kst = datetime.strptime(match.group(1), "%Y.%m.%d %H:%M").replace(tzinfo=timezone(timedelta(hours=9)))
+            pub_datetime_utc = pub_datetime_kst.astimezone(timezone.utc)
+        except:
+            continue
+        if pub_datetime_utc < time_threshold:
+            continue
+        classify_and_store_news(title, link)
 
 # 결과 출력용 HTML 생성
 output_lines = ["<hr>"]
