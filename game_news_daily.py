@@ -22,7 +22,7 @@ rss_feeds = {
 }
 
 special_feed_urls = [
-    "https://politepol.com/fd/28jpFpv2W7OH.xml",
+    "https://politepol.com/fd/28jpFpv2W7OH.xml", "https://politepol.com/fd/rsbMlIQtbP54.xml",
     "https://politepol.com/fd/1srOTQOhMAMl.xml"
 ]
 
@@ -37,7 +37,7 @@ update_keywords = [
 ]
 
 industry_keywords = [
-    "파업", "한한령", "규제", "판매량", "개최", "모집", "홍콩", "대만", "게임 업계", "매출", "시장", "주가", "m&a"
+    "파업", "한한령", "규제", "판매량", "개최", "모집", "홍콩", "대만", "게임 업계", "매출", "시장", "주가", "m&a", "매각", "인수", "투자"
 ]
 
 # game_companies와 키워드 목록은 너무 길어서 생략. 기존 값 그대로 사용.
@@ -197,16 +197,26 @@ for url in special_feed_urls:
         title = entry.title.strip()
         link = entry.link
         description = entry.get("description", "")
-        match = re.search(r"(\d{4}\.\d{2}\.\d{2} \d{2}:\d{2})", description)
+
+        match = re.search(r"(\d{4}[.-]\d{2}[.-]\d{2} \d{2}:\d{2})(?::\d{2})?", description)
         if not match:
             continue
+
         try:
-            pub_datetime_kst = datetime.strptime(match.group(1), "%Y.%m.%d %H:%M").replace(tzinfo=timezone(timedelta(hours=9)))
+            date_str = match.group(1)
+            if "." in date_str:
+                pub_datetime_kst = datetime.strptime(date_str, "%Y.%m.%d %H:%M")
+            else:
+                pub_datetime_kst = datetime.strptime(date_str, "%Y-%m-%d %H:%M")
+            pub_datetime_kst = pub_datetime_kst.replace(tzinfo=timezone(timedelta(hours=9)))
             pub_datetime_utc = pub_datetime_kst.astimezone(timezone.utc)
-        except:
+        except Exception as e:
+            print(f"❌ 날짜 파싱 실패: {title} | Error: {e}")
             continue
+
         if pub_datetime_utc < time_threshold:
             continue
+
         classify_and_store_news(title, link)
 
 # 결과 출력용 HTML 생성
