@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 # ========== 설정 ==========
 now = datetime.now(timezone.utc)
-time_threshold = now - timedelta(hours=20)
+time_threshold = now - timedelta(hours=15)
 
 save_path = r"C:\\Users\\dahyijung\\OneDrive - Tencent Overseas\\tencentoverseas - News clipping - backup"
 html_file = os.path.join(save_path, "game_news_today.html")
